@@ -10,7 +10,7 @@ router.get(
   (req, res) => {
     console.log('Authenticated User:', req.user);
     // Redirect to the frontend upon successful authentication
-    res.redirect('https://googleoauth2.netlify.app//dashboard'); // Update as necessary
+    res.redirect('https://googleoauth2.netlify.app/dashboard'); // Update as necessary
   }
 );
 
