@@ -31,18 +31,33 @@ app.use(cors({
 //   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 // }));
 
+// app.use(session({
+//   secret: '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8', // Use the secret from .env
+//   resave: false,
+//   saveUninitialized: false,
+//   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+//   cookie: {
+//     secure: false, // Set to true if using HTTPS
+//     httpOnly: true,
+//     sameSite: 'none', // Important for cross-origin OAuth
+//     maxAge: 24 * 60 * 60 * 1000 // 1 day
+//   }
+// }));
+
+
 app.use(session({
-  secret: '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8', // Use the secret from .env
+  secret: process.env.SESSION_SECRET || '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8',
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   cookie: {
-    secure: false, // Set to true if using HTTPS
+    secure: process.env.NODE_ENV === 'production', // Set to true in production
     httpOnly: true,
-    sameSite: 'none', // Important for cross-origin OAuth
+    sameSite: 'none', // Required for cross-origin cookies
     maxAge: 24 * 60 * 60 * 1000 // 1 day
   }
 }));
+
 
 
 app.use(passport.initialize());
