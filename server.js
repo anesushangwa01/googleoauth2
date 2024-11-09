@@ -19,44 +19,34 @@ mongoose.connect(process.env.MONGO_URI);
 
 // Use CORS middleware
 app.use(cors({
-  origin: 'https://googleoauth2.netlify.app', // Allow this origin to access the server
+  origin: 'https://googleoauth2.netlify.app/', // Allow this origin to access the server
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed HTTP methods
-  credentials: true // Allow credentials (cookies, authorization headers, etc.)
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.),
+  httpOnly: true,
+     sameSite: 'none',
 }));
 
-// app.use(session({
-//   secret: '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8',
-//   resave: false,
-//   saveUninitialized: false,
-//   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
-// }));
+app.use(session({
+  secret: '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+}));
+
+
 
 // app.use(session({
-//   secret: '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8', // Use the secret from .env
+//   secret: process.env.SESSION_SECRET || '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8',
 //   resave: false,
 //   saveUninitialized: false,
 //   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
 //   cookie: {
-//     secure: false, // Set to true if using HTTPS
+    
 //     httpOnly: true,
-//     sameSite: 'none', // Important for cross-origin OAuth
+//     sameSite: 'none', // Required for cross-origin cookies
 //     maxAge: 24 * 60 * 60 * 1000 // 1 day
 //   }
 // }));
-
-
-app.use(session({
-  secret: process.env.SESSION_SECRET || '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-  cookie: {
-    secure: process.env.NODE_ENV === 'production', // Set to true in production
-    httpOnly: true,
-    sameSite: 'none', // Required for cross-origin cookies
-    maxAge: 24 * 60 * 60 * 1000 // 1 day
-  }
-}));
 
 
 
