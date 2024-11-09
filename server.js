@@ -17,7 +17,7 @@ const app = express();
 mongoose.connect(process.env.MONGO_URI);
 
 
-// Use CORS middleware
+// Use CORS middlewarescsdfd
 app.use(cors({
   origin: 'https://googleoauth2.netlify.app/', // Allow this origin to access the server
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed HTTP methods
