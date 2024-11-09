@@ -35,18 +35,6 @@ app.use(session({
 
 
 
-// app.use(session({
-//   secret: process.env.SESSION_SECRET || '8ecd454161b19fd966d83cf0249143a84482671bf7c16cf612cdf2be6247a6c8',
-//   resave: false,
-//   saveUninitialized: false,
-//   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-//   cookie: {
-    
-//     httpOnly: true,
-//     sameSite: 'none', // Required for cross-origin cookies
-//     maxAge: 24 * 60 * 60 * 1000 // 1 day
-//   }
-// }));
 
 
 
